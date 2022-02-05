@@ -69,4 +69,8 @@ Engine_Triangles : CroneEngine {
 	  });
 	});
   }
+
+  free {
+	(0..3).do({arg i; synths[i].free});
+  }
 }
