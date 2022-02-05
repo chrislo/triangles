@@ -1,6 +1,9 @@
 engine.name = 'Triangles'
+triangles = include('triangles/lib/triangles_engine')
 
 function init()
+  triangles.add_params()
+
   playing = true
 end
 
