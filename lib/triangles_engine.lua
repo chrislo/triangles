@@ -35,19 +35,24 @@ local param_names = {
   "amp", "pan", "pan_lfo_depth", "pan_lfo_freq" }
 
 function Triangles.add_params()
-  params:add_group("Triangles", #param_names)
+  params:add_group("Triangles", (4 * #param_names) + 4)
 
-  for i = 1, #param_names do
-    local p_name = param_names[i]
+  for s = 0, 3 do
+    params:add_separator("Triangle "..s)
 
-    params:add{
-      type = "control",
-      id = "triangles_"..p_name,
-      name = p_name,
-      controlspec = specs[p_name],
-      formatter = p_name == "pan" and Formatters.bipolar_as_pan_widget or nil,
-      action = function(x) engine[p_name](x) end
-    }
+    for i = 1, #param_names do
+      local p_name = param_names[i]
+      local engine_key = "s"..s.."_"..p_name
+
+      params:add{
+	type = "control",
+	id = "triangles_"..engine_key,
+	name = p_name,
+	controlspec = specs[p_name],
+	formatter = p_name == "pan" and Formatters.bipolar_as_pan_widget or nil,
+	action = function(x) engine[engine_key](x) end
+      }
+    end
   end
 
   params:bang()

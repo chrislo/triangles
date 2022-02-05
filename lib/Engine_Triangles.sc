@@ -1,5 +1,5 @@
 Engine_Triangles : CroneEngine {
-  var params, synth;
+  var params, synths;
 
   alloc {
 	SynthDef(\triangle, {
@@ -59,11 +59,13 @@ Engine_Triangles : CroneEngine {
 
 	Server.default.sync;
 
-	synth = Synth(\triangle, params.getPairs);
+	synths = Array.fill(4, {arg i; Synth(\triangle, params.getPairs) });
 
-	params.keysDo({ arg key;
-	  this.addCommand(key, "f", { arg msg;
-		synth.set(key, msg[1]);
+	(0..3).do({arg synth;
+	  params.keysDo({ arg key;
+		this.addCommand("s" ++ synth ++ "_" ++ key, "f", { arg msg;
+		  synths[synth].set(key, msg[1]);
+		});
 	  });
 	});
   }
