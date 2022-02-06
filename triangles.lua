@@ -1,5 +1,5 @@
 -- triangles v0.1.0
--- four endlessly triggering voices
+-- endless triangles
 --
 --
 --
@@ -7,7 +7,7 @@
 --
 --    ▼ instructions below ▼
 --
--- E2 randomises parameters
+-- K2 randomises parameters
 
 engine.name = 'Triangles'
 Triangles = include('triangles/lib/triangles_engine')
