@@ -22,3 +22,5 @@ install from maiden using
 ```
 ;install https://github.com/chrislo/triangles
 ```
+
+this script includes an Engine, so you will need to `SYSTEM > RESTART`.
