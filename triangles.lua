@@ -25,7 +25,8 @@ function key(n,z)
 end
 
 function randomise_params()
-  local chord = MusicUtil.generate_chord(48, "Minor 9")
+  local chords = {"Minor 7", "Minor 9", "Major 7", "Major 9", "Sus4"}
+  local chord = MusicUtil.generate_chord(48, chords[math.random(1, #chords)])
 
   for voice = 0, 3 do
     Triangles.note(voice, chord[math.random(1, #chord)])
