@@ -21,8 +21,8 @@ Engine_Triangles : CroneEngine {
 	  var freq_b = (note + detune_semitones).midicps + f_cents;
 
 	  var snd = Mix.new([
-		DPW3Tri.ar(Vibrato.ar(freq_a, rate: vibrato_rate, depth: vibrato_depth)),
-		DPW3Tri.ar(Vibrato.ar(freq_b, rate: vibrato_rate, depth: vibrato_depth)),
+		DPW3Tri.ar(Vibrato.ar(freq_a.lag2, rate: vibrato_rate, depth: vibrato_depth)),
+		DPW3Tri.ar(Vibrato.ar(freq_b.lag2, rate: vibrato_rate, depth: vibrato_depth)),
 		PinkNoise.ar(noise),
 	  ]);
 
