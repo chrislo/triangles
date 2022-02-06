@@ -63,8 +63,14 @@ Engine_Triangles : CroneEngine {
 
 	(0..3).do({arg synth;
 	  params.keysDo({ arg key;
-		this.addCommand("s" ++ synth ++ "_" ++ key, "f", { arg msg;
-		  synths[synth].set(key, msg[1]);
+		if ([\decimation_bits, \note, \detune_semitones].includes(key), {
+		  this.addCommand("s" ++ synth ++ "_" ++ key, "i", { arg msg;
+			synths[synth].set(key, msg[1]);
+		  });
+		}, {
+		  this.addCommand("s" ++ synth ++ "_" ++ key, "f", { arg msg;
+			synths[synth].set(key, msg[1]);
+		  });
 		});
 	  });
 	});
