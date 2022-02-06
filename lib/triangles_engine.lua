@@ -88,4 +88,52 @@ function Triangles.add_params()
   params:bang()
 end
 
+function parameter_name(voice, key)
+  return "s"..voice.."_"..key
+end
+
+function Triangles.note(voice, x)
+  params:set(parameter_name(voice, 'note'), x)
+end
+
+function Triangles.level(voice, x)
+  params:set(parameter_name(voice, 'amp'), x)
+end
+
+function Triangles.attack(voice, x)
+  params:set(parameter_name(voice, 'attack'), x)
+end
+
+function Triangles.release(voice, x)
+  params:set(parameter_name(voice, 'release'), x)
+end
+
+function Triangles.trigger_freq(voice, x)
+  params:set(parameter_name(voice, 'trigger_freq'), x)
+end
+
+function Triangles.trigger_delay(voice, x)
+  params:set(parameter_name(voice, 'trigger_delay'), x)
+end
+
+function Triangles.noise_level(voice, x)
+  params:set(parameter_name(voice, 'noise'), x)
+end
+
+function Triangles.bit_depth(voice, x)
+  params:set(parameter_name(voice, 'decimation_bits'), x)
+end
+
+function Triangles.vibrato_depth(voice, x)
+  params:set(parameter_name(voice, 'vibrato_depth'), x)
+end
+
+function Triangles.cutoff(voice, x)
+  params:set(parameter_name(voice, 'cutoff'), x)
+end
+
+function Triangles.pan(voice, x)
+  params:set(parameter_name(voice, 'pan'), x)
+end
+
 return Triangles
