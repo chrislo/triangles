@@ -2,6 +2,8 @@
 
 four endlessly triggering voices
 
+![screenshot of triangles](/img/triangles.png)
+
 Each of the four voices consists of 2 triangle waves and some noise. Each voice is independently triggered by its own (tempo-sync'd) clock source. Adjust the amplitude envelope, filter cutoff, vibrato and bit rate of each voice to taste.
 
 ## Requirements
