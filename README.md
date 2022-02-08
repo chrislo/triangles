@@ -15,7 +15,12 @@ Each of the four voices consists of 2 triangle waves and some noise. Each voice 
 
 Parameters are randomised when the script starts, hit K2 to randomise again.
 
-Use the norns parameter menu to map parameters to your MIDI controller.
+Use the norns parameter menu `PARAMETERS > TRIANGLES` to change the parameters of each voice. Most parameters should be self-explanatory but there's a few less obvious ones:
+
+- *detune* detunes one oscillator against the other in the voice
+- *bellow* alters the mix between the two oscillators on the rise and fall of the envelope. `0.5` (default) plays both oscillators equally throughout the envelope, while `0` plays oscillator 1 on the rise, and 2 on the fall. `1` reverses this.
+- *curve* adjusts the curvature of the [perc](https://doc.sccode.org/Classes/Env.html#*perc) amplitude envelope
+- *trigger frequency* how often (in beats at the current system clock tempo) the envelope is triggered.
 
 ## Install
 
