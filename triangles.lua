@@ -44,9 +44,38 @@ function randomise_params()
   Triangles.vibrato_depth(3, 0.002)
 end
 
+function rotate(p, deg)
+  local rad = math.rad(deg)
+  local x_p = (p.x * math.cos(rad)) - (p.y * math.sin(rad))
+  local y_p = (p.x * math.sin(rad)) + (p.y * math.cos(rad))
+
+  return { x = x_p, y = y_p }
+end
+
+function draw_triangle(x, y, size, deg)
+  local h = (math.sqrt(3) * size) / 2
+  local v1 = { x = 0, y = h/2}
+  local v2 = { x = size/2, y = -h/2}
+  local v3 = { x = -size/2, y = -h/2}
+
+  v1 = rotate(v1, deg)
+  v2 = rotate(v2, deg)
+  v3 = rotate(v3, deg)
+
+  screen.line_width(1)
+  screen.move(v1.x + x, v1.y + y)
+  screen.line(v2.x + x, v2.y + y)
+  screen.line(v3.x + x, v3.y + y)
+  screen.close()
+  screen.stroke()
+end
+
 function redraw()
   screen.clear()
-  screen.move(64,32)
-  screen.text("triangles")
+  screen.aa(1)
+  draw_triangle(30, 32, 30, 0)
+  draw_triangle(50, 32, 32, 10)
+  draw_triangle(70, 32, 34, 20)
+  draw_triangle(90, 32, 36, 30)
   screen.update()
 end
