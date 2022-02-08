@@ -3,7 +3,7 @@ local Formatters = require 'formatters'
 local MusicUtil = require "musicutil"
 
 function Triangles.add_params()
-  local number_of_parameters_per_synth = 20
+  local number_of_parameters_per_synth = 21
   params:add_group("TRIANGLES", (4 * number_of_parameters_per_synth) + 4)
 
   for s = 0, 3 do
@@ -23,6 +23,10 @@ function Triangles.add_params()
 
     params:add_number(prefix.."detune_cents", "detune (cents)", 0, 100, 0)
     params:set_action(prefix.."detune_cents", function(n) engine[prefix.."detune_cents"](n) end)
+
+    params:add_control(prefix.."bellow", "bellow", controlspec.UNIPOLAR, nil)
+    params:set_action(prefix.."bellow", function(n) engine[prefix.."bellow"](n) end)
+    params:set(prefix.."bellow", 0.5)
 
     params:add_taper(prefix.."attack", "attack", 0, 10, 1.0, 0.001, "s")
     params:set_action(prefix.."attack", function(n) engine[prefix.."attack"](n) end)
@@ -134,6 +138,10 @@ end
 
 function Triangles.pan(voice, x)
   params:set(parameter_name(voice, 'pan'), x)
+end
+
+function Triangles.bellow(voice, x)
+  params:set(parameter_name(voice, 'bellow'), x)
 end
 
 return Triangles

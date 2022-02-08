@@ -6,7 +6,7 @@ Engine_Triangles : CroneEngine {
 	  arg out = 0,
 	  note, detune_semitones, detune_cents,
 	  attack, release, curve,
-	  trigger_freq, trigger_delay,
+	  bellow, trigger_freq, trigger_delay,
 	  noise, amp_lfo_freq, amp_lfo_depth,
 	  cutoff, cutoff_depth,
 	  vibrato_rate, vibrato_depth,
@@ -15,14 +15,17 @@ Engine_Triangles : CroneEngine {
 
 	  var gate_seq = TDelay.kr(Impulse.kr(trigger_freq), trigger_delay);
 	  var env = EnvGen.kr(Env.perc(attack, release, curve: curve), gate: gate_seq);
+	  var bellow_env = EnvGen.kr(Env.step([bellow, 1-bellow], [attack, release]), gate: Trig.kr(gate_seq, attack));
 
 	  var f_cents = (((note+1).midicps - note.midicps)/100) * detune_cents;
 	  var freq_a = note.midicps;
 	  var freq_b = (note + detune_semitones).midicps + f_cents;
 
 	  var snd = Mix.new([
-		DPW3Tri.ar(Vibrato.ar(freq_a.lag2, rate: vibrato_rate, depth: vibrato_depth)),
-		DPW3Tri.ar(Vibrato.ar(freq_b.lag2, rate: vibrato_rate, depth: vibrato_depth)),
+		SelectX.ar(bellow_env, [
+		  DPW3Tri.ar(Vibrato.ar(freq_a.lag2, rate: vibrato_rate, depth: vibrato_depth)),
+		  DPW3Tri.ar(Vibrato.ar(freq_b.lag2, rate: vibrato_rate, depth: vibrato_depth)),
+		]),
 		PinkNoise.ar(noise),
 	  ]);
 
@@ -41,6 +44,7 @@ Engine_Triangles : CroneEngine {
 	  \attack, 0.01,
 	  \release, 1,
 	  \curve, -4,
+	  \bellow, 0.5,
 	  \trigger_freq, 0.2,
 	  \trigger_delay, 0,
 	  \noise, 0.1,
