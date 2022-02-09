@@ -1,6 +1,6 @@
 # triangles
 
-four endlessly triggering voices
+endless triangles
 
 ![screenshot of triangles](/img/triangles.png)
 
@@ -13,7 +13,7 @@ Each of the four voices consists of 2 triangle waves and some noise. Each voice 
 
 ## Documentation
 
-Parameters are randomised when the script starts, hit K2 to randomise again.
+- K2: randomise parameters
 
 Use the norns parameter menu `PARAMETERS > TRIANGLES` to change the parameters of each voice. Most parameters should be self-explanatory but there's a few less obvious ones:
 
