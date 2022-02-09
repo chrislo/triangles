@@ -4,7 +4,11 @@ local MusicUtil = require "musicutil"
 
 function Triangles.add_params()
   local number_of_parameters_per_synth = 21
-  params:add_group("TRIANGLES", (4 * number_of_parameters_per_synth) + 4)
+  params:add_group("TRIANGLES", (4 * number_of_parameters_per_synth) + 4 + 2)
+
+  params:add_separator("GLOBAL")
+  params:add_number("t_global_transpose", "transpose (semitones)", -24, 24, 0)
+  params:set_action("t_global_transpose", function(n) Triangles.global_transpose(n) end)
 
   for s = 0, 3 do
     local prefix = "s"..s.."_"
@@ -92,8 +96,15 @@ function Triangles.add_params()
   params:bang()
 end
 
+
 function parameter_name(voice, key)
   return "s"..voice.."_"..key
+end
+
+function Triangles.global_transpose(x)
+  for s = 0, 3 do
+    engine["s"..s.."_".."transpose"](x)
+  end
 end
 
 function Triangles.note(voice, x)

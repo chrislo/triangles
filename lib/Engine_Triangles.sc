@@ -4,7 +4,7 @@ Engine_Triangles : CroneEngine {
   alloc {
 	SynthDef(\triangle, {
 	  arg out = 0,
-	  note, detune_semitones, detune_cents,
+	  note, transpose, detune_semitones, detune_cents,
 	  attack, release, curve,
 	  bellow, trigger_freq, trigger_delay,
 	  noise, amp_lfo_freq, amp_lfo_depth,
@@ -18,8 +18,8 @@ Engine_Triangles : CroneEngine {
 	  var bellow_env = EnvGen.kr(Env.step([bellow, 1-bellow], [attack, release]), gate: Trig.kr(gate_seq, attack));
 
 	  var f_cents = (((note+1).midicps - note.midicps)/100) * detune_cents;
-	  var freq_a = note.midicps;
-	  var freq_b = (note + detune_semitones).midicps + f_cents;
+	  var freq_a = (note + transpose).midicps;
+	  var freq_b = (note + detune_semitones + transpose).midicps + f_cents;
 
 	  var snd = Mix.new([
 		SelectX.ar(bellow_env, [
@@ -39,6 +39,7 @@ Engine_Triangles : CroneEngine {
 
 	params = Dictionary.newFrom([
 	  \note, 60,
+	  \transpose, 0,
 	  \detune_semitones, 0,
 	  \detune_cents, 0,
 	  \attack, 0.01,
@@ -67,7 +68,7 @@ Engine_Triangles : CroneEngine {
 
 	(0..3).do({arg synth;
 	  params.keysDo({ arg key;
-		if ([\decimation_bits, \note, \detune_semitones].includes(key), {
+		if ([\decimation_bits, \note, \transpose, \detune_semitones].includes(key), {
 		  this.addCommand("s" ++ synth ++ "_" ++ key, "i", { arg msg;
 			synths[synth].set(key, msg[1]);
 		  });
