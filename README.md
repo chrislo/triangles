@@ -31,3 +31,9 @@ install from maiden using
 ```
 
 this script includes an Engine, so you will need to `SYSTEM > RESTART`.
+
+## Acknowledgements
+
+- @jayhaych for feedback and encouragement on my supercollider experiments during #jamuary. Some of those experiments became this script.
+- @noiserock for beta testing
+- @pfig, @tteejj, @imwaiting, @boboter, @21echoes for their encouragement and enthusiasm.
