@@ -7,7 +7,7 @@ Engine_Triangles : CroneEngine {
 	  note, transpose, detune_semitones, detune_cents,
 	  attack, release, curve,
 	  bellow, trigger_freq, trigger_delay,
-	  noise, amp_lfo_freq, amp_lfo_depth,
+	  noise_mix, osc_mix, amp_lfo_freq, amp_lfo_depth,
 	  cutoff, cutoff_depth,
 	  vibrato_rate, vibrato_depth,
 	  decimation_bits,
@@ -21,12 +21,16 @@ Engine_Triangles : CroneEngine {
 	  var freq_a = (note + transpose).midicps;
 	  var freq_b = (note + detune_semitones + transpose).midicps + f_cents;
 
+	  var osc1_mul = osc_mix * (1 - noise_mix);
+	  var osc2_mul = (1 - osc_mix) * (1 - noise_mix);
+	  var noise_mul = noise_mix;
+
 	  var snd = Mix.new([
 		SelectX.ar(bellow_env, [
-		  DPW3Tri.ar(Vibrato.ar(freq_a.lag2, rate: vibrato_rate, depth: vibrato_depth)),
-		  DPW3Tri.ar(Vibrato.ar(freq_b.lag2, rate: vibrato_rate, depth: vibrato_depth)),
+		  DPW3Tri.ar(Vibrato.ar(freq_a.lag2, rate: vibrato_rate, depth: vibrato_depth), mul: osc1_mul),
+		  DPW3Tri.ar(Vibrato.ar(freq_b.lag2, rate: vibrato_rate, depth: vibrato_depth), mul: osc2_mul),
 		]),
-		PinkNoise.ar(noise),
+		PinkNoise.ar(noise_mul),
 	  ]);
 
 	  var amp_lfo = SinOsc.kr(amp_lfo_freq).range(1-amp_lfo_depth, 1);
@@ -48,7 +52,8 @@ Engine_Triangles : CroneEngine {
 	  \bellow, 0.5,
 	  \trigger_freq, 0.2,
 	  \trigger_delay, 0,
-	  \noise, 0.1,
+	  \noise_mix, 0.1,
+	  \osc_mix, 0.5,
 	  \amp_lfo_freq, 1,
 	  \amp_lfo_depth, 0,
 	  \cutoff, 7000,

@@ -3,7 +3,7 @@ local Formatters = require 'formatters'
 local MusicUtil = require "musicutil"
 
 function Triangles.add_params()
-  local number_of_parameters_per_synth = 21
+  local number_of_parameters_per_synth = 22
   params:add_group("TRIANGLES", (4 * number_of_parameters_per_synth) + 4 + 2)
 
   params:add_separator("GLOBAL")
@@ -55,8 +55,11 @@ function Triangles.add_params()
 	engine[prefix.."trigger_delay"](n * one_beat_in_seconds)
     end)
 
-    params:add_control(prefix.."noise", "noise level", controlspec.UNIPOLAR, nil)
-    params:set_action(prefix.."noise", function(n) engine[prefix.."noise"](n) end)
+    params:add_control(prefix.."noise_mix", "noise/osc mix", controlspec.UNIPOLAR, nil)
+    params:set_action(prefix.."noise_mix", function(n) engine[prefix.."noise_mix"](n) end)
+
+    params:add_control(prefix.."osc_mix", "osc1/osc2 mix", controlspec.UNIPOLAR, nil)
+    params:set_action(prefix.."osc_mix", function(n) engine[prefix.."osc_mix"](n) end)
 
     params:add_control(prefix.."amp_lfo_freq", "amp LFO rate", controlspec.LOFREQ, nil)
     params:set_action(prefix.."amp_lfo_freq", function(n) engine[prefix.."amp_lfo_freq"](n) end)
@@ -131,8 +134,12 @@ function Triangles.trigger_delay(voice, x)
   params:set(parameter_name(voice, 'trigger_delay'), x)
 end
 
-function Triangles.noise_level(voice, x)
-  params:set(parameter_name(voice, 'noise'), x)
+function Triangles.noise_mix(voice, x)
+  params:set(parameter_name(voice, 'noise_mix'), x)
+end
+
+function Triangles.osc_mix(voice, x)
+  params:set(parameter_name(voice, 'osc_mix'), x)
 end
 
 function Triangles.bit_depth(voice, x)

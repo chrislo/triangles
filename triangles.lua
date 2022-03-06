@@ -31,7 +31,8 @@ function randomise_params()
   for voice = 0, 3 do
     Triangles.note(voice, chord[math.random(1, #chord)])
     Triangles.level(voice, 0.2)
-    Triangles.noise_level(voice, math.random(2, 6) / 10.0)
+    Triangles.noise_mix(voice, 0.05)
+    Triangles.osc_mix(voice, 0.5)
 
     Triangles.attack(voice, math.random(1, 3))
     Triangles.release(voice, math.random(1, 5))
